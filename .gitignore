@@ -129,3 +129,4 @@ gradlew
 gradlew.bat
 gradle/
 build/
+web-inf/
