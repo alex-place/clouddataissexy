@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import co.porkopolis.model.templates.BasicSummoner;
-import co.porkopolis.model.templates.SummonerName;
+import co.porkopolis.model.BasicSummoner;
+import co.porkopolis.model.SummonerName;
 import co.porkopolis.requests.Request;
 import co.porkopolis.utils.AttributeConstants;
 import co.porkopolis.utils.FileConstants;

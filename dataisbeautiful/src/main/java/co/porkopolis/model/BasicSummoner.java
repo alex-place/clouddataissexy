@@ -1,4 +1,4 @@
-package co.porkopolis.model.templates;
+package co.porkopolis.model;
 
 public class BasicSummoner {
 	

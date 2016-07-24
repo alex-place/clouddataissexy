@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-import co.porkopolis.model.templates.BasicSummoner;
+import co.porkopolis.model.BasicSummoner;
 
 public class Request {
 
