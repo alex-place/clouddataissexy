@@ -1,18 +1,26 @@
 package co.porkopolis.model;
 
 public class BasicSummoner {
-	
+
 	public int id;
-	
+
 	public String name;
-	
+
 	public int profileIconId;
-	
+
 	public int summonerLevel;
-	
+
 	public long revisionDate;
-	
+
 	public BasicSummoner() {
+	}
+
+	public BasicSummoner(int id, String name, int profileIconId, int summonerLevel, long revisionDate) {
+		this.id = id;
+		this.name = name;
+		this.profileIconId = profileIconId;
+		this.summonerLevel = summonerLevel;
+		this.revisionDate = revisionDate;
 	}
 
 	public int getId() {
@@ -54,7 +62,5 @@ public class BasicSummoner {
 	public void setRevisionDate(long revisionDate) {
 		this.revisionDate = revisionDate;
 	}
-	
-	
 
 }

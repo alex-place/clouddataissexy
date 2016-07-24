@@ -29,14 +29,10 @@ public class Request {
 
 	private static BasicSummoner mapToBasicSummoner(HashMap map, String name) {
 		HashMap realMap = (HashMap) map.get(name);
-		BasicSummoner summoner = new BasicSummoner();
-
-		summoner.setId((int) realMap.get("id"));
-		summoner.setName((String) realMap.get("name"));
-		summoner.setProfileIconId((int) realMap.get("profileIconId"));
-		summoner.setSummonerLevel((int) realMap.get("summonerLevel"));
-		summoner.setRevisionDate((long) realMap.get("revisionDate"));
-
+		BasicSummoner summoner = new BasicSummoner((int) realMap.get("id"), (String) realMap.get("name"),
+				(int) realMap.get("profileIconId"), (int) realMap.get("summonerLevel"),
+				(long) realMap.get("revisionDate"));
+		
 		return summoner;
 	}
 
