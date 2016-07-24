@@ -1,0 +1,5 @@
+<project>
+    <target name="runScripts">
+        <echo>Hello, from Ant</echo>
+    </target>
+</project>

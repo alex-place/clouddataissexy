@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Result</h1>
+    <p th:text="'Name: ' + ${basicSummoner.name}" />
+    <p th:text="'Summoner ID: ' + ${basicSummoner.id}" />
+
+
+    <a href="/">Submit another message</a>
+</body>
+</html>
