@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.stereotype.Repository;
+
 import co.porkopolis.dao.BasicSummonerDAO;
 import co.porkopolis.model.BasicSummoner;
 
@@ -59,40 +61,35 @@ public class BasicSummonerDAOImpl implements BasicSummonerDAO {
 	@Override
 	public BasicSummoner findById(int id) {
 		String sql = "SELECT * FROM summoners WHERE ID = ?";
-		
+
 		Connection conn = null;
-		
-		try{
+
+		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			BasicSummoner summoner = null;
 			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()){
-				summoner = new BasicSummoner(
-						rs.getInt("ID"),
-						rs.getString("SUMMONERNAME"),
-						rs.getInt("PROFILEICONID"),
-						rs.getInt("SUMMONERLEVEL"),
-						rs.getLong("REVISIONDATE")
-						);
+
+			if (rs.next()) {
+				summoner = new BasicSummoner(rs.getInt("ID"), rs.getString("SUMMONERNAME"), rs.getInt("PROFILEICONID"),
+						rs.getInt("SUMMONERLEVEL"), rs.getLong("REVISIONDATE"));
 			}
 			rs.close();
 			ps.close();
 			return summoner;
-			
-			
-		}catch(SQLException e){
+
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally{
-			if(conn != null){
-				try{
+		} finally {
+			if (conn != null) {
+				try {
 					conn.close();
-				}catch(SQLException e){}
+				} catch (SQLException e) {
+				}
 			}
 		}
-		
+
 	}
 
 }
