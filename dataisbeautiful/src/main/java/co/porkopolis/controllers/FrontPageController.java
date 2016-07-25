@@ -15,6 +15,12 @@ import co.porkopolis.utils.FileConstants;
 @Controller
 public class FrontPageController {
 
+	private Request request;
+
+	public FrontPageController() {
+		request = new Request();
+	}
+
 	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.GET)
 	public String greetingForm(Model model) {
 		model.addAttribute(AttributeConstants.SUMMONER_NAME, new SummonerName());
@@ -23,14 +29,9 @@ public class FrontPageController {
 
 	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.POST)
 	public String greetingSubmit(@ModelAttribute SummonerName summonerName, Model model) {
-		BasicSummoner summoner = Request.requestBasicSummoner(summonerName.getName());
+		BasicSummoner summoner = request.requestBasicSummoner(summonerName.getName());
 		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
 		return FileConstants.SUMMONER_DISPLAY;
-	}
-	
-	@RequestMapping(value = { "/hey" })
-	public String hey(Model model) {
-		return "hey";
 	}
 
 }
