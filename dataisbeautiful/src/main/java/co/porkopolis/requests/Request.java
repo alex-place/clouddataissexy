@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
+import co.porkopolis.dao.BasicSummonerDAO;
+import co.porkopolis.dao.impl.JDBCBasicSummonerDAOImpl;
 import co.porkopolis.model.BasicSummoner;
 
 public class Request {
@@ -17,6 +19,13 @@ public class Request {
 	// Summoner name goes between these and the api key after
 	public final String REQUEST_BASIC_SUMMONER_PART_1 = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/";
 	public final String REQUEST_BASIC_SUMMONER_PART_2 = "?api_key=";
+
+	public BasicSummonerDAO summonerDAO;
+
+	public Request() {
+	}
+	
+
 
 	public BasicSummoner requestBasicSummoner(String name) {
 		RestTemplate template = new RestTemplate();
@@ -32,6 +41,8 @@ public class Request {
 		BasicSummoner summoner = new BasicSummoner((int) realMap.get("id"), (String) realMap.get("name"),
 				(int) realMap.get("profileIconId"), (int) realMap.get("summonerLevel"),
 				(long) realMap.get("revisionDate"));
+		summonerDAO = new JDBCBasicSummonerDAOImpl();
+		summonerDAO.insert(summoner);
 
 		return summoner;
 	}

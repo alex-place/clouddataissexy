@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import co.porkopolis.model.BasicSummoner;
 
-public class BasicSummonerRowMapper implements RowMapper {
+public class BasicSummonerRowMapper implements RowMapper<Object> {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
