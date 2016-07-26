@@ -15,12 +15,7 @@ apply plugin: 'war'
 
 war{
 	baseName = 'clouddataissexy'
-    version =  '0.0.2'
-}
-
-jar {
-    baseName = 'clouddataissexy'
-    version =  '0.0.2'
+    version =  '0.0.4-PATCH'
 }
 
 configurations {
