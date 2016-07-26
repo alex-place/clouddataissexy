@@ -11,10 +11,16 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war{
+	baseName = 'gs-relational-data-access'
+    version =  '0.0.2'
+}
 
 jar {
     baseName = 'gs-relational-data-access'
-    version =  '0.1.0'
+    version =  '0.0.2'
 }
 
 configurations {
@@ -23,6 +29,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
 sourceCompatibility = 1.8

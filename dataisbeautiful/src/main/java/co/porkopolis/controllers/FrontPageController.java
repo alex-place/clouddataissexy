@@ -1,7 +1,6 @@
 package co.porkopolis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +16,8 @@ import co.porkopolis.utils.FileConstants;
 @Controller
 public class FrontPageController {
 
-	private Request request;
-	
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	private Request request;
 
 	public FrontPageController() {
 		request = new Request();
@@ -35,20 +32,13 @@ public class FrontPageController {
 	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.POST)
 	public String greetingSubmit(@ModelAttribute SummonerName summonerName, Model model) {
 		BasicSummoner summoner = request.requestBasicSummoner(summonerName.getName());
-		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
-		
-		System.out.println("Creating summoner table");
-
-		jdbcTemplate.execute("DROP TABLE IF EXISTS SUMMONERS");
-		jdbcTemplate.execute("CREATE TABLE SUMMONERS"
-				+ "(ID INT NOT NULL,NAME varchar(255) NOT NULL,PROFILEICONID INT NOT NULL,SUMMONERLEVEL INT NOT NULL,REVISIONDATE BIGINT NOT NULL,UPDATED TIMESTAMP NOT NULL default now() on update now(),PRIMARY KEY (ID))"
-
-		);
-		
-		System.out.println("Summoner table created!");
-		
-		
-		return FileConstants.SUMMONER_DISPLAY;
+		if (summoner != null) {
+			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
+			return FileConstants.SUMMONER_DISPLAY;
+		} else {
+			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
+			return FileConstants.HOME_PAGE;
+		}
 	}
 
 }

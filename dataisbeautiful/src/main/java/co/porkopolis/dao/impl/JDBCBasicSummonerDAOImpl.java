@@ -2,10 +2,12 @@ package co.porkopolis.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import co.porkopolis.dao.BasicSummonerDAO;
 import co.porkopolis.model.BasicSummoner;
 
+@Component
 public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
 
 	@Autowired
@@ -13,7 +15,7 @@ public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
 
 	@Override
 	public void insert(BasicSummoner summoner) {
-		String sql = "INSERT INTO SUMMONER" + "(ID, NAME, PROFILEICONID, SUMMONERLEVEL, REVISIONDATE)"
+		String sql = "INSERT INTO SUMMONERS" + "(ID, NAME, PROFILEICONID, SUMMONERLEVEL, REVISIONDATE)"
 				+ "VALUES( ?, ?, ?, ?, ?)";
 
 		jdbcTemplate.update(sql, new Object[] { summoner.getId(), summoner.getName(), summoner.getProfileIconId(),
