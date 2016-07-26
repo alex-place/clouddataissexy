@@ -8,8 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import co.porkopolis.requests.Request;
-
 @SpringBootApplication
 public class DataisbeautifulApplication {
 
@@ -24,9 +22,6 @@ public class DataisbeautifulApplication {
 		for (String beanName : beanNames) {
 			System.out.println(beanName);
 		}
-
-		Request request = new Request();
-		request.requestBasicSummoner("bradelfield");
 
 	}
 
