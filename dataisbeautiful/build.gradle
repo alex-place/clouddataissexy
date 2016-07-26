@@ -14,12 +14,12 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 war{
-	baseName = 'gs-relational-data-access'
+	baseName = 'clouddataissexy'
     version =  '0.0.2'
 }
 
 jar {
-    baseName = 'gs-relational-data-access'
+    baseName = 'clouddataissexy'
     version =  '0.0.2'
 }
 
