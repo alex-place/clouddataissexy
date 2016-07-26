@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import co.porkopolis.dao.BasicSummonerDAO;
@@ -34,7 +35,12 @@ public class Request {
 
 		if (summoner == null) {
 			// Not found in db
-			summoner = getBasicSummonerJSON(name);
+			try {
+				summoner = getBasicSummonerJSON(name);
+			} catch (Exception e) {
+				// do nothing
+			}
+
 		}
 
 		return summoner;
@@ -44,7 +50,15 @@ public class Request {
 		RestTemplate template = new RestTemplate();
 		String mes = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + name
 				+ "?api_key=7d62f8ef-aceb-4d1d-b2ba-9f7946f0aa29";
-		HashMap<String, Object> map = template.getForObject(mes, HashMap.class);
+
+		HashMap<String, Object> map = null;
+
+		try {
+			map = template.getForObject(mes, HashMap.class);
+		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
+		}
+
 		log.info(map.toString());
 		return mapToBasicSummoner(map, name);
 	}
