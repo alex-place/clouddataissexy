@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout.html}">
 <head>
-    <title>CScore</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Brad Sucks!</title>
+  <script src="content-script.js"></script>
 </head>
 <body>
-	<h1>Brad Sucks!</h1>
-    <form action="#" th:action="@{/index}" th:object="${summonerName}" method="post">
-        <p>Message: <input type="text" th:field="*{name}" />
-        <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+  <section layout:fragment="content">
+  
+  <h1>Brad Sucks!</h1>
+	<form action="#" th:action="@{/index}" th:object="${summonerName}"
+		method="post">
+		<p>
+			Message: <input type="text" th:field="*{name}" placeholder="Please enter the Summoner's name" /> <input
+				type="submit" value="Submit" /> <input type="reset" value="Reset" />
+		</p>
+	</form>
+  
+    <p>This is a paragraph from the content page</p>
+  </section>
+  <footer>
+    <p layout:fragment="custom-footer">This is some footer content from the content page</p>
+  </footer>
 </body>
 </html>
