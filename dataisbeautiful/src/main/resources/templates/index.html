@@ -1,24 +1,27 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Brad Sucks!</title>
-<script src="content-script.js"></script>
+<head lang="en">
+
+<title>League Dash</title>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-	<header> </header>
 
-	<h1>Brad Sucks!</h1>
-	<form action="#" th:action="@{/index}" th:object="${summonerName}"
-		method="post">
-		<p>
-			Message: <input type="text" th:field="*{name}"
+	<div class="container">
+		<h1>League Dash</h1>
+		<form action="#" th:action="@{/index}" th:object="${summonerName}"
+			method="post">
+
+			<input type="text" th:field="*{name}"
 				placeholder="Please enter the Summoner's name" /> <input
 				type="submit" value="Submit" /> <input type="reset" value="Reset" />
-		</p>
-	</form>
 
-	<footer>
-		<p>This is some footer content from the content page</p>
-	</footer>
+		</form>
+		
+	</div>
+
+
+
 </body>
 </html>

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import co.porkopolis.dao.BasicSummonerDAO;
 import co.porkopolis.dao.impl.JDBCBasicSummonerDAOImpl;
@@ -16,10 +16,11 @@ public class AppConfig {
 
 	@Bean
 	public ViewResolver viewResolver() {
-		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-		templateResolver.setTemplateMode("XHTML");
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+		templateResolver.setTemplateMode("HTML5");
 		// templateResolver.setPrefix("templates/");
 		templateResolver.setSuffix(".html");
+		
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setTemplateResolver(templateResolver);
 
