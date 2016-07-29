@@ -9,16 +9,21 @@
 <body>
 
 	<div class="container">
+
 		<h1>League Dash</h1>
 		<form action="#" th:action="@{/index}" th:object="${summonerName}"
 			method="post">
 
-			<input type="text" th:field="*{name}"
-				placeholder="Please enter the Summoner's name" /> <input
-				type="submit" value="Submit" /> <input type="reset" value="Reset" />
+			<div class="form-group">
+				<input type="text" class="form-control input-lg" th:field="*{name}"
+					placeholder="Please enter the Summoner's name" />
+			</div>
+
+			<input type="submit" value="Submit" /> <input type="reset"
+				value="Reset" />
 
 		</form>
-		
+
 	</div>
 
 
