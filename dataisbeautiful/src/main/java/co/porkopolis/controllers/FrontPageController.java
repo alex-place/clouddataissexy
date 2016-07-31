@@ -41,4 +41,79 @@ public class FrontPageController {
 		}
 	}
 
+	@RequestMapping(value = { "/", "/" + FileConstants.GENERAL })
+	public String general(Model model) {
+		return FileConstants.GENERAL;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.INDEX })
+	public String index(Model model) {
+		return FileConstants.INDEX;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.BASIC_TABLE })
+	public String basic_table(Model model) {
+		return FileConstants.BASIC_TABLE;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.BLANK })
+	public String blank(Model model) {
+		return FileConstants.BLANK;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.BUTTONS })
+	public String buttons(Model model) {
+		return FileConstants.BUTTONS;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.CALENDAR })
+	public String calendar(Model model) {
+		return FileConstants.CALENDAR;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.CHARTJS })
+	public String chartjs(Model model) {
+		return FileConstants.CHARTJS;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.FORM_COMPONENT })
+	public String form_component(Model model) {
+		return FileConstants.FORM_COMPONENT;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.GALLERY })
+	public String gallery(Model model) {
+		return FileConstants.GALLERY;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.LOCK_SCREEN })
+	public String lock_screen(Model model) {
+		return FileConstants.LOCK_SCREEN;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.LOGIN })
+	public String login(Model model) {
+		return FileConstants.LOGIN;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.MORRIS })
+	public String morris(Model model) {
+		return FileConstants.MORRIS;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.PANELS })
+	public String panels(Model model) {
+		return FileConstants.PANELS;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.RESPONSIVE_TABLE })
+	public String responsive_table(Model model) {
+		return FileConstants.RESPONSIVE_TABLE;
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.TODO_LIST })
+	public String todo_list(Model model) {
+		return FileConstants.TODO_LIST;
+	}
+
 }

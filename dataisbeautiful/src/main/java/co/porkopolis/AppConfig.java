@@ -17,7 +17,8 @@ public class AppConfig {
 	@Bean
 	public ViewResolver viewResolver() {
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setTemplateMode("LEGACYHTML5");
+		templateResolver.setCacheable(false);
 		// templateResolver.setPrefix("templates/");
 		templateResolver.setSuffix(".html");
 		

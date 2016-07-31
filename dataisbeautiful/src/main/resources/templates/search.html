@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+<title>League Dash</title>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+
+	<div class="container-fluid bg-1 text-center">
+
+		<img src="ekko.png" class="ekko-img" alt="Ekko"></img>
+		<form action="#" th:action="@{/index}" th:object="${summonerName}"
+			method="post">
+
+			<div class="form-group">
+				<input type="text" class="form-control input-lg" th:field="*{name}"
+					placeholder="Please enter the Summoner's name" />
+			</div>
+
+			<input type="submit" value="Submit" /> <input type="reset"
+				value="Reset" />
+
+		</form>
+	</div>
+
+	<div class="container-fluid bg-2 text-center">
+		<footer>
+			<p>League Dash isn't endorsed by Riot Games and doesn't reflect
+				the views or opinions of Riot Games or anyone officially involved in
+				producing or managing League of Legends. League of Legends and Riot
+				Games are trademarks or registered trademarks of Riot Games, Inc.
+				League of Legends &copy; Riot Games, Inc.</p>
+		</footer>
+	</div>
+
+
+
+
+
+</body>
+</html>
