@@ -24,19 +24,28 @@ public class FrontPageController {
 	}
 
 	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.GET)
-	public String greetingForm(Model model) {
+	public String home(Model model) {
 		model.addAttribute(AttributeConstants.SUMMONER_NAME, new SummonerName());
 		return FileConstants.HOME_PAGE;
 	}
 
 	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.POST)
-	public String greetingSubmit(@ModelAttribute SummonerName summonerName, Model model) {
+	public String home(@ModelAttribute SummonerName summonerName, Model model) {
 		BasicSummoner summoner = request.requestBasicSummoner(summonerName.getName());
 		if (summoner != null) {
 			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
-			return FileConstants.SUMMONER_DISPLAY;
+			return FileConstants.INDEX;
 		} else {
 			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
+			return FileConstants.HOME_PAGE;
+		}
+	}
+
+	@RequestMapping(value = { "/", "/" + FileConstants.INDEX })
+	public String index(@ModelAttribute BasicSummoner summoner, Model model) {
+		if (model.containsAttribute(AttributeConstants.BASIC_SUMMONER)) {
+			return FileConstants.INDEX;
+		} else {
 			return FileConstants.HOME_PAGE;
 		}
 	}
@@ -44,11 +53,6 @@ public class FrontPageController {
 	@RequestMapping(value = { "/", "/" + FileConstants.GENERAL })
 	public String general(Model model) {
 		return FileConstants.GENERAL;
-	}
-
-	@RequestMapping(value = { "/", "/" + FileConstants.INDEX })
-	public String index(Model model) {
-		return FileConstants.INDEX;
 	}
 
 	@RequestMapping(value = { "/", "/" + FileConstants.BASIC_TABLE })
