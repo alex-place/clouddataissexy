@@ -4,11 +4,11 @@ public class FileConstants {
 
 	public static final String SUMMONER_DISPLAY = "SummonerDisplay";
 
-	public static final String HOME_PAGE = "search";
+	public static final String SEARCH = "search";
 
 	public static final String GENERAL = "general";
 
-	public static final String INDEX = "index";
+	public static final String DASHBOARD = "index";
 
 	public static final String BASIC_TABLE = "basic_table";
 

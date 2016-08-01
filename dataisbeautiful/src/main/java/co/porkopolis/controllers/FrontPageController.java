@@ -22,39 +22,39 @@ public class FrontPageController {
 	public FrontPageController() {
 		request = new Request();
 	}
-	
+
 	@ModelAttribute("summonerName")
-	public SummonerName getSummonerName(){
+	public SummonerName getSummonerName() {
 		return new SummonerName();
 	}
 
-	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/" + FileConstants.SEARCH }, method = RequestMethod.GET)
 	public String home(Model model) {
 		model.addAttribute(AttributeConstants.SUMMONER_NAME, new SummonerName());
-		return FileConstants.HOME_PAGE;
+		return FileConstants.SEARCH;
 	}
 
-	@RequestMapping(value = { "/", "/" + FileConstants.HOME_PAGE }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/", "/" + FileConstants.SEARCH }, method = RequestMethod.POST)
 	public String home(@ModelAttribute SummonerName summonerName, Model model) {
-		if(summonerName == null || summonerName.getName() == null){
-			return FileConstants.HOME_PAGE;
+		if (summonerName == null || summonerName.getName() == null) {
+			return FileConstants.SEARCH;
 		}
 		BasicSummoner summoner = request.requestBasicSummoner(summonerName.getName());
 		if (summoner != null) {
 			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
-			return FileConstants.INDEX;
+			return FileConstants.DASHBOARD;
 		} else {
 			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
-			return FileConstants.HOME_PAGE;
+			return FileConstants.SEARCH;
 		}
 	}
 
-	@RequestMapping(value = { "/" + FileConstants.INDEX })
+	@RequestMapping(value = {"/" + FileConstants.DASHBOARD })
 	public String index(@ModelAttribute BasicSummoner summoner, Model model) {
 		if (summoner.name != null) {
-			return FileConstants.INDEX;
+			return FileConstants.SUMMONER_DISPLAY;
 		} else {
-			return FileConstants.HOME_PAGE;
+			return FileConstants.SEARCH;
 		}
 	}
 
