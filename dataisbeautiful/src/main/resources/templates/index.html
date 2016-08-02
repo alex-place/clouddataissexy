@@ -195,7 +195,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+              	  <p class="centered"><a href="profile.html"><img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.15.1/img/profileicon/${basicSummoner.profileIconId}.png|}" class="img-circle" width="60"></a></p>
               	  <h5 class="centered" th:text="${basicSummoner.name}"></h5>
               	  	
                   <li class="mt">
@@ -342,7 +342,7 @@
 								<div class="row">
 									<div class="col-sm-6 col-xs-6 goleft">
 										<p><i class="fa fa-database"></i> 70%</p>
-										<p th:text="'Summoner Level: ' + ${basicSummoner.summonerLevel}" />
+										<p th:text="${basicSummoner.summonerLevel}" />
 									</div>
 	                      		</div>
 								<canvas id="serverstatus01" height="120" width="120"></canvas>
@@ -350,7 +350,7 @@
 								
 									/*<![CDATA[*/
 								    
-							         var level = /*[[${basicSummoner.summonerLevel}]]*/ 10;
+							         var level = /*[[${basicSummoner.summonerLevel}]]*/ 0;
 	
 							       /*]]>*/
 								
@@ -360,7 +360,7 @@
 												color:"#68dff0"
 											},
 											{
-												value : level,
+												value : 30 - level,
 												color : "#fdfdfd"
 											}
 										];
