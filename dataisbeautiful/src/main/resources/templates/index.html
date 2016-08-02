@@ -337,15 +337,13 @@
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn donut-chart">
                       			<div class="white-header">
-						  			<h5>SUMMONER LEVEL</h5>
+						  			<h5 id="rankText">SUMMONER LEVEL</h5>
                       			</div>
 								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-database"></i> 70%</p>
-										<p th:text="${basicSummoner.summonerLevel}" />
+									<div class="col-sm-6 col-xs-6">
 									</div>
 	                      		</div>
-								<canvas id="serverstatus01" height="120" width="120"></canvas>
+								<canvas id="serverstatus01" height="200" width="200"></canvas>
 								<script th:inline="javascript">
 								
 									/*<![CDATA[*/
@@ -364,7 +362,23 @@
 												color : "#fdfdfd"
 											}
 										];
+							       
+							       		if(level != 30){
 										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
+							       		}else{
+							       			var rankText = document.getElementById("rankText").innerHTML = "RANK"
+							       			make_base();
+
+							       			function make_base()
+							       			{
+							       			  base_image = new Image();
+							       			  base_image.src = 'tier_icons/bronze_v.png';
+							       			  base_image.onload = function(){
+							       				document.getElementById("serverstatus01").getContext("2d").drawImage(base_image, 0, 0, 200, 200);
+							       			  }
+							       			}
+							       		}
+										
 								</script>
 	                      	</div><! --/grey-panel -->
                       	</div><!-- /col-md-4-->
