@@ -36,6 +36,9 @@ public class FrontPageController {
 
 	@RequestMapping(value = { "/", "/" + FileConstants.SEARCH }, method = RequestMethod.POST)
 	public String home(@ModelAttribute SummonerName summonerName, Model model) {
+		if (summonerName == null || summonerName.getName() == null) {
+			return FileConstants.SEARCH;
+		}
 		BasicSummoner summoner = request.requestBasicSummoner(summonerName.getName());
 		if (summoner != null) {
 			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
