@@ -1,6 +1,7 @@
 package co.porkopolis.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
 	}
 
 	@Override
-	public Summoner findByName(String name) {
+	public Summoner findByName(String name) throws EmptyResultDataAccessException{
 		Summoner summoner = null;
 		String sql = "SELECT * FROM SUMMONERS WHERE NAME = ?";
 		summoner = (Summoner) jdbcTemplate.queryForObject(sql, new Object[] { name },

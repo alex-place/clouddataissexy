@@ -3,6 +3,7 @@ package co.porkopolis.requests;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import co.porkopolis.dao.BasicSummonerDAO;
 import net.rithms.riot.api.RiotApi;
@@ -20,9 +21,6 @@ public class Request {
 	public final String REQUEST_BASIC_SUMMONER_PART_1 = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/";
 	public final String REQUEST_BASIC_SUMMONER_PART_2 = "?api_key=";
 
-	// @Autowired
-	// JdbcTemplate jdbcTemplate;
-
 	@Autowired
 	BasicSummonerDAO basicSummonerDAO;
 
@@ -31,60 +29,24 @@ public class Request {
 
 	public Summoner requestBasicSummoner(String name) {
 		Summoner summoner = null;
+
 		try {
-			summoner = api.getSummonerByName(Region.NA, name);
-		} catch (RiotApiException e) {
-			e.printStackTrace();
+			summoner = basicSummonerDAO.findByName(name);
+		} catch (EmptyResultDataAccessException e) {
+			// Do nothing
+		}
+		
+		if (summoner == null) {
+
+			try {
+				summoner = api.getSummonerByName(Region.NA, name);
+				basicSummonerDAO.insert(summoner);
+
+			} catch (RiotApiException e) {
+				e.printStackTrace();
+			}
 		}
 		return summoner;
 	}
-
-	// public Summoner requestBasicSummoner(String name) {
-	// Summoner summoner = null;
-	//
-	// summoner = getBasicSummonerFromDAO(name);
-	//
-	// if (summoner == null) {
-	// // Not found in db
-	// try {
-	// summoner = getBasicSummonerJSON(name);
-	// } catch (Exception e) {
-	// // do nothing
-	// }
-	//
-	// }
-	//
-	// return summoner;
-	// }
-	//
-	// public Summoner getBasicSummonerJSON(String name) {
-	// RestTemplate template = new RestTemplate();
-	// String mes = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" +
-	// name
-	// + "?api_key=7d62f8ef-aceb-4d1d-b2ba-9f7946f0aa29";
-	//
-	// HashMap<String, Object> map = null;
-	//
-	// try {
-	// map = template.getForObject(mes, HashMap.class);
-	// } catch (HttpClientErrorException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// log.info(map.toString());
-	// return mapToBasicSummoner(map, name);
-	// }
-	//
-	// public Summoner getBasicSummonerFromDAO(String name) {
-	// Summoner summoner = null;
-	//
-	// try {
-	// summoner = basicSummonerDAO.findByName(name);
-	// } catch (Exception e) {
-	//
-	// }
-	//
-	// return summoner;
-	// }
 
 }
