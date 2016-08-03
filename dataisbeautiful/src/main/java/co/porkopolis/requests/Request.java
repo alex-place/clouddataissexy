@@ -1,16 +1,14 @@
 package co.porkopolis.requests;
 
-import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import co.porkopolis.dao.BasicSummonerDAO;
-import co.porkopolis.model.BasicSummoner;
+import net.rithms.riot.api.RiotApi;
+import net.rithms.riot.api.RiotApiException;
+import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
+import net.rithms.riot.constant.Region;
 
 public class Request {
 
@@ -28,62 +26,65 @@ public class Request {
 	@Autowired
 	BasicSummonerDAO basicSummonerDAO;
 
-	public BasicSummoner requestBasicSummoner(String name) {
-		BasicSummoner summoner = null;
+	@Autowired
+	RiotApi api;
 
-		summoner = getBasicSummonerFromDAO(name);
-
-		if (summoner == null) {
-			// Not found in db
-			try {
-				summoner = getBasicSummonerJSON(name);
-			} catch (Exception e) {
-				// do nothing
-			}
-
-		}
-
-		return summoner;
-	}
-
-	public BasicSummoner getBasicSummonerJSON(String name) {
-		RestTemplate template = new RestTemplate();
-		String mes = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + name
-				+ "?api_key=7d62f8ef-aceb-4d1d-b2ba-9f7946f0aa29";
-
-		HashMap<String, Object> map = null;
-
+	public Summoner requestBasicSummoner(String name) {
+		Summoner summoner = null;
 		try {
-			map = template.getForObject(mes, HashMap.class);
-		} catch (HttpClientErrorException e) {
+			summoner = api.getSummonerByName(Region.NA, name);
+		} catch (RiotApiException e) {
 			e.printStackTrace();
 		}
-
-		log.info(map.toString());
-		return mapToBasicSummoner(map, name);
-	}
-
-	public BasicSummoner getBasicSummonerFromDAO(String name) {
-		BasicSummoner summoner = null;
-
-		try {
-			summoner = basicSummonerDAO.findByName(name);
-		} catch (Exception e) {
-
-		}
-
 		return summoner;
 	}
 
-	public BasicSummoner mapToBasicSummoner(HashMap map, String name) {
-		HashMap realMap = (HashMap) map.get(name);
-		BasicSummoner summoner = new BasicSummoner((int) realMap.get("id"), (String) realMap.get("name"),
-				(int) realMap.get("profileIconId"), (int) realMap.get("summonerLevel"),
-				(long) realMap.get("revisionDate"));
-
-		basicSummonerDAO.insert(summoner);
-
-		return summoner;
-	}
+	// public Summoner requestBasicSummoner(String name) {
+	// Summoner summoner = null;
+	//
+	// summoner = getBasicSummonerFromDAO(name);
+	//
+	// if (summoner == null) {
+	// // Not found in db
+	// try {
+	// summoner = getBasicSummonerJSON(name);
+	// } catch (Exception e) {
+	// // do nothing
+	// }
+	//
+	// }
+	//
+	// return summoner;
+	// }
+	//
+	// public Summoner getBasicSummonerJSON(String name) {
+	// RestTemplate template = new RestTemplate();
+	// String mes = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" +
+	// name
+	// + "?api_key=7d62f8ef-aceb-4d1d-b2ba-9f7946f0aa29";
+	//
+	// HashMap<String, Object> map = null;
+	//
+	// try {
+	// map = template.getForObject(mes, HashMap.class);
+	// } catch (HttpClientErrorException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// log.info(map.toString());
+	// return mapToBasicSummoner(map, name);
+	// }
+	//
+	// public Summoner getBasicSummonerFromDAO(String name) {
+	// Summoner summoner = null;
+	//
+	// try {
+	// summoner = basicSummonerDAO.findByName(name);
+	// } catch (Exception e) {
+	//
+	// }
+	//
+	// return summoner;
+	// }
 
 }

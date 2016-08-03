@@ -1,13 +1,13 @@
 package co.porkopolis.dao;
 
-import co.porkopolis.model.BasicSummoner;
+import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 
 public interface BasicSummonerDAO {
 
-	public void insert(BasicSummoner summoner);
+	public void insert(Summoner summoner);
 
-	public BasicSummoner findByName(String name);
+	public Summoner findByName(String name);
 
-	public BasicSummoner findById(int id);
+	public Summoner findById(int id);
 
 }

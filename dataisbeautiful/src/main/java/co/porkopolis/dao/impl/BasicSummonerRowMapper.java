@@ -5,14 +5,15 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import co.porkopolis.model.BasicSummoner;
+import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
+
 
 public class BasicSummonerRowMapper implements RowMapper<Object> {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-		BasicSummoner summoner = new BasicSummoner();
+		Summoner summoner = new Summoner();
 
 		summoner.setId(rs.getInt("ID"));
 		summoner.setName(rs.getString("NAME"));

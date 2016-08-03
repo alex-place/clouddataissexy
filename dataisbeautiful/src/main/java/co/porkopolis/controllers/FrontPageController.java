@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import co.porkopolis.model.BasicSummoner;
 import co.porkopolis.model.SummonerName;
 import co.porkopolis.requests.Request;
 import co.porkopolis.utils.AttributeConstants;
 import co.porkopolis.utils.FileConstants;
+import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 
 @Controller
 public class FrontPageController {
@@ -39,7 +39,7 @@ public class FrontPageController {
 		if (summonerName == null || summonerName.getName() == null) {
 			return FileConstants.SEARCH;
 		}
-		BasicSummoner summoner = request.requestBasicSummoner(summonerName.getName());
+		Summoner summoner = request.requestBasicSummoner(summonerName.getName());
 		if (summoner != null) {
 			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
 			return FileConstants.DASHBOARD;
@@ -50,8 +50,8 @@ public class FrontPageController {
 	}
 
 	@RequestMapping(value = {"/" + FileConstants.DASHBOARD })
-	public String index(@ModelAttribute BasicSummoner summoner, Model model) {
-		if (summoner.name != null) {
+	public String index(@ModelAttribute Summoner summoner, Model model) {
+		if (summoner.getName() != null) {
 			return FileConstants.SUMMONER_DISPLAY;
 		} else {
 			return FileConstants.SEARCH;

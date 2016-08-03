@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import co.porkopolis.dao.BasicSummonerDAO;
-import co.porkopolis.model.BasicSummoner;
+import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 
 @Component
 public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
@@ -14,7 +14,7 @@ public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
 	JdbcTemplate jdbcTemplate;
 
 	@Override
-	public void insert(BasicSummoner summoner) {
+	public void insert(Summoner summoner) {
 		String sql = "INSERT INTO SUMMONERS" + "(ID, NAME, PROFILEICONID, SUMMONERLEVEL, REVISIONDATE)"
 				+ "VALUES( ?, ?, ?, ?, ?)";
 
@@ -23,19 +23,19 @@ public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
 	}
 
 	@Override
-	public BasicSummoner findByName(String name) {
-		BasicSummoner summoner = null;
+	public Summoner findByName(String name) {
+		Summoner summoner = null;
 		String sql = "SELECT * FROM SUMMONERS WHERE NAME = ?";
-		summoner = (BasicSummoner) jdbcTemplate.queryForObject(sql, new Object[] { name },
+		summoner = (Summoner) jdbcTemplate.queryForObject(sql, new Object[] { name },
 				new BasicSummonerRowMapper());
 		return summoner;
 	}
 
 	@Override
-	public BasicSummoner findById(int id) {
-		BasicSummoner summoner = null;
+	public Summoner findById(int id) {
+		Summoner summoner = null;
 		String sql = "SELECT * FROM SUMMONERS WHERE ID = ?";
-		summoner = (BasicSummoner) jdbcTemplate.queryForObject(sql, new Object[] { id }, new BasicSummonerRowMapper());
+		summoner = (Summoner) jdbcTemplate.queryForObject(sql, new Object[] { id }, new BasicSummonerRowMapper());
 		return summoner;
 	}
 
