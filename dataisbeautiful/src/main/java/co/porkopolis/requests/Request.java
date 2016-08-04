@@ -48,6 +48,32 @@ public class Request {
 		}
 		return summoner;
 	}
+	
+	public LeagueEntry getLeagueEntry(long id){
+		LeagueEntry entry = null;
+		List<League> leagues = null;
+		String rank = null;
+
+		try {
+			leagues = api.getLeagueBySummoner(Region.NA, id);
+
+			List entries = leagues.get(0).getEntries();
+
+			for (int i = 0; i < entries.size(); i++) {
+				entry = (LeagueEntry) entries.get(i);
+				if (Long.parseLong(entry.getPlayerOrTeamId()) == id) {
+					rank = leagues.get(0).getTier() + "_" + entry.getDivision();
+					return entry;
+				}
+			}
+
+		} catch (RiotApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return entry;
+	}
 
 	public String getSummonerRank(long id) {
 
@@ -63,8 +89,7 @@ public class Request {
 			for (int i = 0; i < entries.size(); i++) {
 				entry = (LeagueEntry) entries.get(i);
 				if (Long.parseLong(entry.getPlayerOrTeamId()) == id) {
-					rank = leagues.get(0).getTier() + entry.getDivision();
-
+					rank = leagues.get(0).getTier() + "_" + entry.getDivision();
 					return rank;
 				}
 			}
