@@ -24,11 +24,10 @@ public class JDBCBasicSummonerDAOImpl implements BasicSummonerDAO {
 	}
 
 	@Override
-	public Summoner findByName(String name) throws EmptyResultDataAccessException{
+	public Summoner findByName(String name) throws EmptyResultDataAccessException {
 		Summoner summoner = null;
 		String sql = "SELECT * FROM SUMMONERS WHERE NAME = ?";
-		summoner = (Summoner) jdbcTemplate.queryForObject(sql, new Object[] { name },
-				new BasicSummonerRowMapper());
+		summoner = (Summoner) jdbcTemplate.queryForObject(sql, new Object[] { name }, new BasicSummonerRowMapper());
 		return summoner;
 	}
 

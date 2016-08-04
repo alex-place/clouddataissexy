@@ -23,6 +23,7 @@ configurations {
 }
 
 repositories {
+	maven { url "https://jitpack.io" }
     mavenCentral()
     maven { url "http://repo.spring.io/libs-snapshot" }
 }
@@ -31,6 +32,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+	// https://jitpack.io/#alex-place/riot-api-java/v3.9.1
+	compile 'com.github.alex-place:riot-api-java:v3.9.1'
 	compile("net.sourceforge.nekohtml:nekohtml:1.9.21")
     compile("org.springframework.boot:spring-boot-starter")
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc

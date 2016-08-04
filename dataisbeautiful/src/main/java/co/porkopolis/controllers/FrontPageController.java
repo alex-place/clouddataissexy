@@ -40,6 +40,13 @@ public class FrontPageController {
 			return FileConstants.SEARCH;
 		}
 		Summoner summoner = request.requestBasicSummoner(summonerName.getName());
+
+		String rank = request.getSummonerRank(summoner.getId());
+
+		if (rank != null) {
+			model.addAttribute(AttributeConstants.SUMMONER_RANK, rank);
+		}
+
 		if (summoner != null) {
 			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
 			return FileConstants.DASHBOARD;
@@ -49,7 +56,7 @@ public class FrontPageController {
 		}
 	}
 
-	@RequestMapping(value = {"/" + FileConstants.DASHBOARD })
+	@RequestMapping(value = { "/" + FileConstants.DASHBOARD })
 	public String index(@ModelAttribute Summoner summoner, Model model) {
 		if (summoner.getName() != null) {
 			return FileConstants.SUMMONER_DISPLAY;
