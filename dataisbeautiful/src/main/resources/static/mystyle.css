@@ -33,7 +33,7 @@ input[type=text]:focus {
 input[type=button], input[type=submit], input[type=reset] {
 	border: 2px solid;
     border-radius: 8px;
-	background-color: black;
+	background-color: #2f2f2f;
 	border: none;
 	color: white;
 	padding: 5px 5px;
@@ -41,6 +41,11 @@ input[type=button], input[type=submit], input[type=reset] {
 	margin: 4px 2px;
 	cursor: pointer;
 	form-control;
+}
+
+.error{
+	color: red;
+	padding-right: 40px;
 }
 
 .ekko-img {

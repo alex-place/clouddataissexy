@@ -36,24 +36,28 @@ public class FrontPageController {
 
 	@RequestMapping(value = { "/", "/" + FileConstants.SEARCH }, method = RequestMethod.POST)
 	public String home(@ModelAttribute SummonerName summonerName, Model model) {
-		if (summonerName == null || summonerName.getName() == null) {
+		if (summonerName == null || summonerName.getName().isEmpty()) {
+			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
 			return FileConstants.SEARCH;
 		}
 		Summoner summoner = request.requestBasicSummoner(summonerName.getName());
 
-		String rank = request.getSummonerRank(summoner.getId());
+		String rank = null;
+		if (summoner != null) {
+			rank = request.getSummonerRank(summoner.getId());
+		}else{
+			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
+			return FileConstants.SEARCH;
+		}
 
 		if (rank != null) {
 			model.addAttribute(AttributeConstants.SUMMONER_RANK, rank);
 		}
 
-		if (summoner != null) {
-			model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
-			return FileConstants.DASHBOARD;
-		} else {
-			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
-			return FileConstants.SEARCH;
-		}
+		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
+
+		return FileConstants.DASHBOARD;
+
 	}
 
 	@RequestMapping(value = { "/" + FileConstants.DASHBOARD })
