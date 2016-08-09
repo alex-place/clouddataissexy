@@ -47,7 +47,10 @@ public class Request {
 
 			try {
 				summoner = api.getSummonerByName(Region.NA, name);
-				basicSummonerDAO.insert(summoner);
+				if (summoner != null) {
+					summoner.setName(summoner.getName().replace(" ", ""));
+					basicSummonerDAO.insert(summoner);
+				}
 			} catch (RiotApiException e) {
 				e.printStackTrace();
 			}
