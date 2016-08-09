@@ -8,7 +8,9 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import co.porkopolis.dao.BasicSummonerDAO;
+import co.porkopolis.dao.RankSummaryDAO;
 import co.porkopolis.dao.impl.JDBCBasicSummonerDAOImpl;
+import co.porkopolis.dao.impl.JDBCRankSummaryDAOImpl;
 import co.porkopolis.requests.Request;
 import net.rithms.riot.api.ApiConfig;
 import net.rithms.riot.api.RiotApi;
@@ -37,6 +39,11 @@ public class AppConfig {
 	@Bean
 	public BasicSummonerDAO basicSummonerDAO() {
 		return new JDBCBasicSummonerDAOImpl();
+	}
+
+	@Bean
+	public RankSummaryDAO rankSummaryDAO() {
+		return new JDBCRankSummaryDAOImpl();
 	}
 
 	@Bean

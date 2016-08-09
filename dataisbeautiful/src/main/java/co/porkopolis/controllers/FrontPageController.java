@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import co.porkopolis.model.RankSummary;
 import co.porkopolis.model.SummonerName;
 import co.porkopolis.requests.Request;
 import co.porkopolis.utils.AttributeConstants;
@@ -42,16 +43,16 @@ public class FrontPageController {
 		}
 		Summoner summoner = request.requestBasicSummoner(summonerName.getName());
 
-		String rank = null;
+		RankSummary summary = null;
 		if (summoner != null) {
-			rank = request.getSummonerRank(summoner.getId());
+			summary = request.getRankSummary(summoner.getId());
 		}else{
 			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
 			return FileConstants.SEARCH;
 		}
 
-		if (rank != null) {
-			model.addAttribute(AttributeConstants.SUMMONER_RANK, rank);
+		if (summary != null) {
+			model.addAttribute(AttributeConstants.RANK_SUMMARY, summary);
 		}
 
 		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);

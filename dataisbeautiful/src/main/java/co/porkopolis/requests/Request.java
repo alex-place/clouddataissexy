@@ -5,9 +5,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import co.porkopolis.dao.BasicSummonerDAO;
+import co.porkopolis.dao.RankSummaryDAO;
+import co.porkopolis.model.RankSummary;
 import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.league.dto.League;
@@ -24,6 +27,9 @@ public class Request {
 
 	@Autowired
 	BasicSummonerDAO basicSummonerDAO;
+
+	@Autowired
+	RankSummaryDAO rankSummaryDAO;
 
 	@Autowired
 	RiotApi api;
@@ -48,8 +54,8 @@ public class Request {
 		}
 		return summoner;
 	}
-	
-	public LeagueEntry getLeagueEntry(long id){
+
+	public LeagueEntry getLeagueEntry(long id) {
 		LeagueEntry entry = null;
 		List<League> leagues = null;
 		String rank = null;
@@ -71,7 +77,7 @@ public class Request {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return entry;
 	}
 
@@ -108,6 +114,46 @@ public class Request {
 
 		return rank;
 
+	}
+
+	public RankSummary getRankSummary(long id) {
+		RankSummary summary = null;
+
+		try {
+			return rankSummaryDAO.findById(id);
+		} catch (DataAccessException e) {
+
+		}
+
+		if (summary == null) {
+
+			LeagueEntry entry = null;
+			List<League> leagues = null;
+			String rank = null;
+
+			try {
+				leagues = api.getLeagueBySummoner(Region.NA, id);
+
+				List entries = leagues.get(0).getEntries();
+
+				for (int i = 0; i < entries.size(); i++) {
+					entry = (LeagueEntry) entries.get(i);
+					if (Long.parseLong(entry.getPlayerOrTeamId()) == id) {
+						rank = leagues.get(0).getTier() + "_" + entry.getDivision();
+						summary = new RankSummary(id, entry.getPlayerOrTeamName(), entry.getWins(), entry.getLosses(),
+								entry.getDivision(), entry.getLeaguePoints(), rank);
+						rankSummaryDAO.insert(summary);
+						return summary;
+					}
+				}
+
+			} catch (RiotApiException e) {
+				return null;
+			}
+
+		}
+
+		return summary;
 	}
 
 }

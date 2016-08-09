@@ -1,4 +1,4 @@
-package co.porkopolis.dao.impl;
+package co.porkopolis.dao.impl.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

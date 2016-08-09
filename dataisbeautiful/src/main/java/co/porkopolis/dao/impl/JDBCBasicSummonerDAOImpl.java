@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import co.porkopolis.dao.BasicSummonerDAO;
+import co.porkopolis.dao.impl.mappers.BasicSummonerRowMapper;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 
 @Component
