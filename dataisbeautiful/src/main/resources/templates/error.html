@@ -48,11 +48,15 @@ p {
 
 .container-fluid {
 	padding-top: 50px;
-	padding-bottom: 50px;
+	padding-bottom: 200px;
 }
 
 .navbar-nav  li a:hover {
 	color: #1abc9c !important;
+}
+
+.oops{
+	padding: 20px;
 }
 </style>
 </head>
@@ -60,31 +64,18 @@ p {
 	<!-- First Container -->
 	<div class="container-fluid bg-1 text-center">
 
-		<img src="ekko.png" class="img-responsive margin"
+		<div class="oops">
+			<h1>Oops!</h1>
+			<h2>The page you requested disappeared. <a href="search">Try again?</a></h2>
+		</div>
+		
+		<img src="rengar.png" class="img-responsive margin"
 			style="display: inline" alt="champion" width="350" height="350">
-
-		<form action="#" th:action="@{/search}" class="form-inline"
-			th:object="${summonerName}" method="post">
-
-			<input type="text" class="form-control input-lg" size="35"
-				th:field="*{name}" placeholder="Please enter the Summoner's name" />
-
-			<input type="submit" value="Search" />
-			<p class="error" color="red" th:text="${actionerror}"></p>
 
 		</form>
 
 
 	</div>
-
-	<!-- Footer -->
-	<footer class="container-fluid bg-4 text-center">
-		<p>League Dashboard isn't endorsed by Riot Games and doesn't
-			reflect the views or opinions of Riot Games or anyone officially
-			involved in producing or managing League of Legends. League of
-			Legends and Riot Games are trademarks or registered trademarks of
-			Riot Games, Inc. League of Legends © Riot Games, Inc.</p>
-	</footer>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package co.porkopolis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +16,7 @@ import co.porkopolis.utils.FileConstants;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 
 @Controller
-public class FrontPageController {
+public class FrontPageController implements ErrorController{
 
 	@Autowired
 	private Request request;
@@ -37,22 +38,30 @@ public class FrontPageController {
 
 	@RequestMapping(value = { "/", "/" + FileConstants.SEARCH }, method = RequestMethod.POST)
 	public String home(@ModelAttribute SummonerName summonerName, Model model) {
-		if (summonerName == null || summonerName.getName().isEmpty()) {
+		if (summonerName == null) {
+			return FileConstants.SEARCH;
+		}
+		
+		if (summonerName.getName().isEmpty()) {
 			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
 			return FileConstants.SEARCH;
 		}
+		
 		Summoner summoner = request.requestBasicSummoner(summonerName.getName());
 
 		RankSummary summary = null;
 		if (summoner != null) {
 			summary = request.getRankSummary(summoner.getId());
-		}else{
+		} else {
 			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
 			return FileConstants.SEARCH;
 		}
 
 		if (summary != null) {
 			model.addAttribute(AttributeConstants.RANK_SUMMARY, summary);
+		} else {
+			model.addAttribute(AttributeConstants.ERROR, "Summoner " + summonerName.getName() + " not found.");
+			return FileConstants.SEARCH;
 		}
 
 		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
@@ -138,6 +147,16 @@ public class FrontPageController {
 	@RequestMapping(value = { "/", "/" + FileConstants.TODO_LIST })
 	public String todo_list(Model model) {
 		return FileConstants.TODO_LIST;
+	}
+
+	@RequestMapping(value = {"/" + FileConstants.ERROR })
+	public String error(Model model) {
+		return FileConstants.ERROR;
+	}
+
+	@Override
+	public String getErrorPath() {
+		return "/" + FileConstants.ERROR;
 	}
 
 }

@@ -36,4 +36,6 @@ public class FileConstants {
 
 	public static final String TODO_LIST = "todo_list";
 
+	public static final String ERROR = "error";
+
 }
