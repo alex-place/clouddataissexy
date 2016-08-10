@@ -282,6 +282,43 @@
 
 
 						<div class="row mt">
+
+							<div class="col-md-4 col-sm-4 mb" th:if="${rank == null}">
+								<div class="white-panel pn donut-chart">
+									<div class="white-header">
+										<h1 id="level">Level 0</h1>
+									</div>
+									<div class="row">
+										<div class="col-sm-6 col-xs-6"></div>
+									</div>
+
+
+									<canvas id="serverstatus01" height="200" width="200"></canvas>
+									<script th:inline="javascript">
+										/*<![CDATA[*/
+										var level = /*[[${basicSummoner.summonerLevel}]]*/0;
+										/*]]>*/
+										var doughnutData = [ {
+											value : level, //Max summoner level is 30
+											color : "#68dff0"
+										}, {
+											value : 30 - level,
+											color : "#fdfdfd"
+										} ];
+										var myDoughnut = new Chart(document
+												.getElementById(
+														"serverstatus01")
+												.getContext("2d"))
+												.Doughnut(doughnutData);
+
+										document.getElementById("level").innerHTML = "LEVEL "
+												+ level;
+									</script>
+								</div>
+								<!--/grey-panel -->
+							</div>
+							<!-- /col-md-4-->
+
 							<div class="col-md-4 col-sm-4 mb" th:if="${rank != null}">
 								<div class="white-panel pn donut-chart">
 									<div class="white-header">
@@ -710,6 +747,8 @@
 		
 		
 		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -743,6 +782,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
+	
+	
 	
 	
 	</script>
