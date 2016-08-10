@@ -282,60 +282,19 @@
 
 
 						<div class="row mt">
-							<!-- SERVER STATUS PANELS -->
-							<div class="col-md-4 col-sm-4 mb">
+							<div class="col-md-4 col-sm-4 mb" th:if="${rank != null}">
 								<div class="white-panel pn donut-chart">
 									<div class="white-header">
-										<h5 id="rankText">SUMMONER LEVEL</h5>
 										<p th:text="${rank.rank}"></p>
 									</div>
 									<div class="row">
 										<div class="col-sm-6 col-xs-6"></div>
 									</div>
-									<canvas id="serverstatus01" height="200" width="200"></canvas>
-									<script th:inline="javascript">
-										/*<![CDATA[*/
+									<img th:src="tier_icons/${rank.rank}.png" class="img-circle"
+										width="200" height="200">
 
-										var level = /*[[${basicSummoner.summonerLevel}]]*/0;
-										var rank = /*[[${rank.rank}]]*/"";
-										/*]]>*/
-
-										var doughnutData = [ {
-											value : 30, //Max summoner level is 30
-											color : "#68dff0"
-										}, {
-											value : 30 - level,
-											color : "#fdfdfd"
-										} ];
-
-										if (level != 30) {
-											var myDoughnut = new Chart(document
-													.getElementById(
-															"serverstatus01")
-													.getContext("2d"))
-													.Doughnut(doughnutData);
-										} else {
-											var rankText = document
-													.getElementById("rankText").innerHTML = "";
-											make_base();
-
-											function make_base() {
-												base_image = new Image();
-												base_image.src = 'tier_icons/'+ rank + '.png';
-												base_image.onload = function() {
-													document.getElementById(
-															"serverstatus01")
-															.getContext("2d")
-															.drawImage(
-																	base_image,
-																	10, 0, 180,
-																	180);
-												}
-											}
-										}
-									</script>
 								</div>
-								<! --/grey-panel -->
+								<!--/grey-panel -->
 							</div>
 							<!-- /col-md-4-->
 
@@ -749,6 +708,8 @@
 
 	<script type="application/javascript">
 		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -782,6 +743,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
+	
+	
 	</script>
 
 

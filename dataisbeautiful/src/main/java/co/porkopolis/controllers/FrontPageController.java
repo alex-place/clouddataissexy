@@ -58,8 +58,6 @@ public class FrontPageController implements ErrorController {
 
 			if (summary != null) {
 				model.addAttribute(AttributeConstants.RANK_SUMMARY, summary);
-			} else {
-				model.addAttribute(AttributeConstants.RANK_SUMMARY, new RankSummary());
 			}
 
 		} else {
