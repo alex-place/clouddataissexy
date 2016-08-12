@@ -1,5 +1,9 @@
 package co.porkopolis.requests;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,6 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 import co.porkopolis.dao.BasicSummonerDAO;
 import co.porkopolis.dao.RankSummaryDAO;
@@ -157,6 +166,38 @@ public class Request {
 		}
 
 		return summary;
+	}
+	
+	public void requestRedditFeed() throws JsonProcessingException, MalformedURLException, IOException{
+		ObjectMapper mapper = new ObjectMapper();
+		
+	
+		
+		URL url = new URL("https://www.reddit.com/r/leagueoflegends/top.json?limit=1");
+		
+		URLConnection conn = url.openConnection();
+        conn.setRequestProperty("User-Agent", "LeagueDashboardBot v0.1.1");
+
+		
+		JsonNode root = mapper.readTree(conn.getInputStream());
+		
+		JsonNode urlNode = root.get("data").get("children");
+		
+		List<JsonNode> children = urlNode.findValues("url");
+		
+		for(JsonNode link : children){
+			if(!link.asText().contains("/comments/")){
+				children.remove(link);
+			}
+		}
+		
+		
+		String result = urlNode.asText();
+		
+		System.out.print("url: " + result);
+		
+		
+		
 	}
 
 }
