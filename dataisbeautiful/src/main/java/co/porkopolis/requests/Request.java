@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,11 +16,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.TextNode;
 
 import co.porkopolis.dao.BasicSummonerDAO;
 import co.porkopolis.dao.RankSummaryDAO;
 import co.porkopolis.model.RankSummary;
+import co.porkopolis.model.RedditFeedItem;
 import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.league.dto.League;
@@ -167,37 +168,42 @@ public class Request {
 
 		return summary;
 	}
-	
-	public void requestRedditFeed() throws JsonProcessingException, MalformedURLException, IOException{
-		ObjectMapper mapper = new ObjectMapper();
-		
-	
-		
-		URL url = new URL("https://www.reddit.com/r/leagueoflegends/top.json?limit=1");
-		
-		URLConnection conn = url.openConnection();
-        conn.setRequestProperty("User-Agent", "LeagueDashboardBot v0.1.1");
 
+	public List<RedditFeedItem> requestRedditFeed(int items) throws JsonProcessingException, MalformedURLException, IOException {
+		items = 2;
+		List<RedditFeedItem> feed = new ArrayList<RedditFeedItem>();
 		
+		ObjectMapper mapper = new ObjectMapper();
+
+		URL url = new URL("https://www.reddit.com/r/leagueoflegends/top.json?limit=" + items);
+
+		URLConnection conn = url.openConnection();
+		conn.setRequestProperty("User-Agent", "LeagueDashboardBot v0.1.1");
+
 		JsonNode root = mapper.readTree(conn.getInputStream());
-		
+
 		JsonNode urlNode = root.get("data").get("children");
-		
+
 		List<JsonNode> children = urlNode.findValues("url");
-		
-		for(JsonNode link : children){
-			if(!link.asText().contains("/comments/")){
-				children.remove(link);
+		List<JsonNode> title = urlNode.findValues("title");
+		List<String> result = new ArrayList(5);
+		int titleIndex = 0;
+
+		for (int i = 0; i < children.size(); i++) {
+			if (!children.get(i).asText().contains("i.redditmedia.com")) {
+
+				result.add(children.get(i).asText());
+				
+				feed.add(new RedditFeedItem(0, children.get(i).asText(), title.get(titleIndex).asText(), ""));
+				titleIndex++;
+				
+
+				// https://i.redditmedia.com/ip9a43enwQkinfW_gS6aIeo7cygoayJMqYrQHVo9FJE.jpg?fit=crop&amp;crop=faces%2Centropy&amp;arh=2&amp;w=960&amp;s=895b2a849be47f8ca67d72a0fc2b954e
 			}
 		}
 		
-		
-		String result = urlNode.asText();
-		
-		System.out.print("url: " + result);
-		
-		
-		
+		return feed;
+
 	}
 
 }
