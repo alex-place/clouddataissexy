@@ -1,5 +1,7 @@
 package co.porkopolis.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -65,6 +67,12 @@ public class FrontPageController implements ErrorController {
 			return FileConstants.SEARCH;
 		}
 
+		try {
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
 		model.addAttribute(AttributeConstants.RANK_SUMMARY, summary);
 
