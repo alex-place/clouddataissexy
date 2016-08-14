@@ -3,21 +3,24 @@ package co.porkopolis.model;
 public class RedditFeedItem {
 
 	private int id;
-	
+
 	private String url;
-	
+
 	private String title;
-	
+
 	private String imgUrl;
-	
+
+	private String permalink;
+
 	public RedditFeedItem() {
 	}
-	
-	public RedditFeedItem(int id, String url, String title, String imgUrl) {
+
+	public RedditFeedItem(int id, String url, String title, String imgUrl, String permalink) {
 		this.id = id;
 		this.url = url;
 		this.title = title;
 		this.imgUrl = imgUrl;
+		this.permalink = permalink;
 	}
 
 	public int getId() {
@@ -52,6 +55,12 @@ public class RedditFeedItem {
 		this.imgUrl = imgUrl;
 	}
 
-	
-	
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
+
 }

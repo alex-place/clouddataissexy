@@ -182,23 +182,25 @@ public class Request {
 			JsonNode urlNode = root.get("data").get("children");
 			List<JsonNode> children = urlNode.findValues("url");
 			List<JsonNode> title = urlNode.findValues("title");
+			List<JsonNode> permalink = urlNode.findValues("permalink");
 
-			int titleIndex = 0;
+			int itemIndex = 0;
 
 			for (int i = 0; i < children.size(); i++) {
 				if (!children.get(i).asText().contains("i.redditmedia.com")) {
 
-					result.add(new RedditFeedItem(0, children.get(i).asText(), title.get(titleIndex).asText(), ""),
-							titleIndex);
-					titleIndex++;
+					result.add(new RedditFeedItem(0, children.get(i).asText(), title.get(itemIndex).asText(), "",  "https://www.reddit.com" + permalink.get(itemIndex).asText()),
+							itemIndex);
+					itemIndex++;
 
 					// https://i.redditmedia.com/ip9a43enwQkinfW_gS6aIeo7cygoayJMqYrQHVo9FJE.jpg?fit=crop&amp;crop=faces%2Centropy&amp;arh=2&amp;w=960&amp;s=895b2a849be47f8ca67d72a0fc2b954e
 				}
 			}
 
 			return result;
-			
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 
