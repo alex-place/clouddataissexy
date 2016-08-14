@@ -7,5 +7,6 @@ public class AttributeConstants {
 	public static final String ERROR = "actionerror";
 	public static final String RANK_SUMMARY = "rank";
 	public static final String SUMMONER_LEAGUE_ENTRY = "leagueEntry";
+	public static final String REDDIT_FEED = "feed";
 
 }

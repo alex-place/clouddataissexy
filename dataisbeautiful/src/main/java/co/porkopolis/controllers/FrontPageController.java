@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.porkopolis.model.RankSummary;
+import co.porkopolis.model.RedditFeed;
 import co.porkopolis.model.SummonerName;
 import co.porkopolis.requests.Request;
 import co.porkopolis.utils.AttributeConstants;
@@ -68,6 +69,8 @@ public class FrontPageController implements ErrorController {
 		}
 
 		try {
+			RedditFeed feed = request.requestRedditFeed();
+			model.addAttribute(AttributeConstants.REDDIT_FEED, feed);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,6 +78,7 @@ public class FrontPageController implements ErrorController {
 		
 		model.addAttribute(AttributeConstants.BASIC_SUMMONER, summoner);
 		model.addAttribute(AttributeConstants.RANK_SUMMARY, summary);
+		
 
 		return FileConstants.DASHBOARD;
 

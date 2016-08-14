@@ -32,8 +32,8 @@ input[type=text]:focus {
 
 input[type=button], input[type=submit], input[type=reset] {
 	border: 2px solid;
-    border-radius: 8px;
-	background-color: #2f2f2f;
+	border-radius: 8px;
+	background-color: #2f2f2f; /*Grey*/
 	border: none;
 	color: white;
 	padding: 5px 5px;
@@ -43,7 +43,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	form-control;
 }
 
-.error{
+.error {
 	color: red;
 	padding-right: 40px;
 }

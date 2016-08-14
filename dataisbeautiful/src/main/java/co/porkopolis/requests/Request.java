@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.porkopolis.dao.BasicSummonerDAO;
 import co.porkopolis.dao.RankSummaryDAO;
 import co.porkopolis.model.RankSummary;
+import co.porkopolis.model.RedditFeed;
 import co.porkopolis.model.RedditFeedItem;
 import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
@@ -169,40 +170,37 @@ public class Request {
 		return summary;
 	}
 
-	public List<RedditFeedItem> requestRedditFeed(int items) throws JsonProcessingException, MalformedURLException, IOException {
-		items = 2;
-		List<RedditFeedItem> feed = new ArrayList<RedditFeedItem>();
-		
-		ObjectMapper mapper = new ObjectMapper();
+	public RedditFeed requestRedditFeed() throws JsonProcessingException, MalformedURLException, IOException {
 
-		URL url = new URL("https://www.reddit.com/r/leagueoflegends/top.json?limit=" + items);
+		try {
+			RedditFeed result = new RedditFeed();
+			ObjectMapper mapper = new ObjectMapper();
+			URL url = new URL("https://www.reddit.com/r/leagueoflegends/top.json?limit=5");
+			URLConnection conn = url.openConnection();
+			conn.setRequestProperty("User-Agent", "LeagueDashboardBot v0.1.1");
+			JsonNode root = mapper.readTree(conn.getInputStream());
+			JsonNode urlNode = root.get("data").get("children");
+			List<JsonNode> children = urlNode.findValues("url");
+			List<JsonNode> title = urlNode.findValues("title");
 
-		URLConnection conn = url.openConnection();
-		conn.setRequestProperty("User-Agent", "LeagueDashboardBot v0.1.1");
+			int titleIndex = 0;
 
-		JsonNode root = mapper.readTree(conn.getInputStream());
+			for (int i = 0; i < children.size(); i++) {
+				if (!children.get(i).asText().contains("i.redditmedia.com")) {
 
-		JsonNode urlNode = root.get("data").get("children");
+					result.add(new RedditFeedItem(0, children.get(i).asText(), title.get(titleIndex).asText(), ""),
+							titleIndex);
+					titleIndex++;
 
-		List<JsonNode> children = urlNode.findValues("url");
-		List<JsonNode> title = urlNode.findValues("title");
-		List<String> result = new ArrayList(5);
-		int titleIndex = 0;
-
-		for (int i = 0; i < children.size(); i++) {
-			if (!children.get(i).asText().contains("i.redditmedia.com")) {
-
-				result.add(children.get(i).asText());
-				
-				feed.add(new RedditFeedItem(0, children.get(i).asText(), title.get(titleIndex).asText(), ""));
-				titleIndex++;
-				
-
-				// https://i.redditmedia.com/ip9a43enwQkinfW_gS6aIeo7cygoayJMqYrQHVo9FJE.jpg?fit=crop&amp;crop=faces%2Centropy&amp;arh=2&amp;w=960&amp;s=895b2a849be47f8ca67d72a0fc2b954e
+					// https://i.redditmedia.com/ip9a43enwQkinfW_gS6aIeo7cygoayJMqYrQHVo9FJE.jpg?fit=crop&amp;crop=faces%2Centropy&amp;arh=2&amp;w=960&amp;s=895b2a849be47f8ca67d72a0fc2b954e
+				}
 			}
+
+			return result;
+			
+		} catch (Exception e) {
+			return null;
 		}
-		
-		return feed;
 
 	}
 

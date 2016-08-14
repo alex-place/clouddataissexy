@@ -15,6 +15,8 @@
 <link rel="stylesheet" type="text/css"
 	href="assets/js/gritter/css/jquery.gritter.css" />
 <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">
+<link rel="stylesheet" type="text/css" href="dashboard.css"></link>
+
 
 <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
@@ -327,8 +329,8 @@
 									<div class="row">
 										<div class="col-sm-6 col-xs-6"></div>
 									</div>
-									<img th:src="${'tier_icons/' + rank.rank + '.png'}" class="img-circle"
-										width="200" height="200">
+									<img th:src="${'tier_icons/' + rank.rank + '.png'}"
+										class="img-circle" width="200" height="200">
 
 								</div>
 								<!--/grey-panel -->
@@ -526,71 +528,72 @@
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->
 
-					<div class="col-lg-3 ds">
+					<div class="col-lg-3 ds" th:if="${feed != null}">
 						<!--COMPLETED ACTIONS DONUTS CHART-->
-						<h3>Reddit - /r/leagueoflegends</h3>
+						<h3>Reddit /r/leagueoflegends</h3>
 
 						<!-- First Action -->
-						<div class="desc">
-							<div class="thumb">
-								<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+						<div class="desc redditFeed">
+							<div class="thumb ">
+								<span class="badge bg-theme"><i class="fa fa-clock-o "></i></span>
 							</div>
 							<div class="details">
 								<p>
 									<muted>2 Minutes Ago</muted>
-									<br /> <a href="#">James Brown</a> subscribed to your
-									newsletter.<br />
+									<br /> <a th:href="${feed.item1.url}"
+										th:text="${feed.item1.title}">James Brown</a><br />
 								</p>
 							</div>
 						</div>
 						<!-- Second Action -->
-						<div class="desc">
-							<div class="thumb">
-								<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+						<div class="desc redditFeed">
+							<div class="thumb ">
+								<span class="badge bg-theme"><i class="fa fa-clock-o "></i></span>
 							</div>
 							<div class="details">
 								<p>
 									<muted>3 Hours Ago</muted>
-									<br /> <a href="#">Diana Kennedy</a> purchased a year
-									subscription.<br />
+									<br /> <a th:href="${feed.item2.url}"
+										th:text="${feed.item2.title}">James Brown</a><br />
 								</p>
 							</div>
 						</div>
 						<!-- Third Action -->
-						<div class="desc">
-							<div class="thumb">
-								<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+						<div class="desc redditFeed">
+							<div class="thumb ">
+								<span class="badge bg-theme"><i class="fa fa-clock-o "></i></span>
 							</div>
 							<div class="details">
 								<p>
 									<muted>7 Hours Ago</muted>
-									<br /> <a href="#">Brandon Page</a> purchased a year
-									subscription.<br />
+									<br /> <a th:href="${feed.item3.url}"
+										th:text="${feed.item3.title}">James Brown</a><br />
 								</p>
 							</div>
 						</div>
 						<!-- Fourth Action -->
-						<div class="desc">
-							<div class="thumb">
-								<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+						<div class="desc redditFeed">
+							<div class="thumb ">
+								<span class="badge bg-theme"><i class="fa fa-clock-o "></i></span>
 							</div>
 							<div class="details">
 								<p>
 									<muted>11 Hours Ago</muted>
-									<br /> <a href="#">Mark Twain</a> commented your post.<br />
+									<br /> <a th:href="${feed.item4.url}"
+										th:text="${feed.item4.title}">James Brown</a><br />
 								</p>
 							</div>
 						</div>
 						<!-- Fifth Action -->
-						<div class="desc">
-							<div class="thumb">
-								<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+						<div class="desc redditFeed">
+							<div class="thumb ">
+								<span class="badge bg-theme"><i class="fa fa-clock-o "></i></span>
 							</div>
 							<div class="details">
 								<p>
 									<muted>18 Hours Ago</muted>
-									<br /> <a href="#">Daniel Pratt</a> purchased a wallet in your
-									store.<br />
+									<br /> <a th:href="${feed.item5.url}"
+										th:text="${feed.item5.title}">James Brown</a><br />
 								</p>
 							</div>
 						</div>
@@ -749,6 +752,8 @@
 		
 		
 		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -782,6 +787,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
+	
+	
 	
 	
 	
