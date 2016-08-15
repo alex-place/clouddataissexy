@@ -540,8 +540,10 @@
 							<div class="details">
 								<p>
 									<muted>2 Minutes Ago</muted>
-									<br /> <a th:href="${feed.item1.url}"
-										th:text="${feed.item1.title}">James Brown</a><br />
+									<br /> <a target="_blank" th:href="${feed.item1.url}"
+										th:text="${feed.item1.title}"></a><br /> <a
+										style="padding-top: 5px;" target="_blank"
+										th:href="${feed.item1.permalink}">comments</a><br />
 								</p>
 							</div>
 						</div>
@@ -553,8 +555,10 @@
 							<div class="details">
 								<p>
 									<muted>3 Hours Ago</muted>
-									<br /> <a th:href="${feed.item2.url}"
-										th:text="${feed.item2.title}">James Brown</a><br />
+									<br /> <a target="_blank" th:href="${feed.item2.url}"
+										th:text="${feed.item2.title}"></a><br /> <a
+										style="padding-top: 5px;" target="_blank"
+										th:href="${feed.item2.permalink}">comments</a><br />
 								</p>
 							</div>
 						</div>
@@ -566,8 +570,10 @@
 							<div class="details">
 								<p>
 									<muted>7 Hours Ago</muted>
-									<br /> <a th:href="${feed.item3.url}"
-										th:text="${feed.item3.title}">James Brown</a><br />
+									<br /> <a target="_blank" th:href="${feed.item3.url}"
+										th:text="${feed.item3.title}"></a><br /> <a
+										style="padding-top: 5px;" target="_blank"
+										th:href="${feed.item3.permalink}">comments</a><br />
 								</p>
 							</div>
 						</div>
@@ -579,8 +585,10 @@
 							<div class="details">
 								<p>
 									<muted>11 Hours Ago</muted>
-									<br /> <a th:href="${feed.item4.url}"
-										th:text="${feed.item4.title}">James Brown</a><br />
+									<br /> <a target="_blank" th:href="${feed.item4.url}"
+										th:text="${feed.item4.title}"></a><br /> <a
+										style="padding-top: 5px;" target="_blank"
+										th:href="${feed.item4.permalink}">comments</a><br />
 								</p>
 							</div>
 						</div>
@@ -592,8 +600,10 @@
 							<div class="details">
 								<p>
 									<muted>18 Hours Ago</muted>
-									<br /> <a th:href="${feed.item5.url}"
-										th:text="${feed.item5.title}">James Brown</a><br />
+									<br /> <a target="_blank" th:href="${feed.item5.url}"
+										th:text="${feed.item5.title}"></a><br /> <a
+										style="padding-top: 5px;" target="_blank"
+										th:href="${feed.item2.permalink}">comments</a><br />
 								</p>
 							</div>
 						</div>
@@ -754,6 +764,21 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -787,6 +812,21 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
