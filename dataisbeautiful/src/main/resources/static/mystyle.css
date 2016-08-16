@@ -23,7 +23,6 @@ input[type=text] {
 	margin-bottom: 10px;
 	margin-top: 10px;
 	margin-right: 40px;
-	width: 64px;
 }
 
 input[type=text]:focus {
