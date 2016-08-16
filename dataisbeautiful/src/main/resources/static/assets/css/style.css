@@ -333,11 +333,11 @@ ul.sidebar-menu li a span {
 }
 
 ul.sidebar-menu li a {
-	color: #aeb2b7;
+	color: #1abc9c;
 	text-decoration: none;
 	display: block;
 	padding: 15px 0 15px 10px;
-	font-size: 12px;
+	font-size: 16px;
 	outline: none;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
