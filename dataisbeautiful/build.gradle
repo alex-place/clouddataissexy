@@ -15,7 +15,7 @@ apply plugin: 'war'
 
 war{
 	baseName = 'clouddataissexy'
-    version =  '0.1.3'
+    version =  '0.1.3-PATCH3'
 }
 
 configurations {

@@ -154,6 +154,7 @@ public class Request {
 					entry = (LeagueEntry) entries.get(i);
 					if (Long.parseLong(entry.getPlayerOrTeamId()) == id) {
 						rank = leagues.get(0).getTier() + "_" + entry.getDivision();
+						rank = rank.toLowerCase();
 						summary = new RankSummary(id, entry.getPlayerOrTeamName(), entry.getWins(), entry.getLosses(),
 								entry.getDivision(), entry.getLeaguePoints(), rank);
 						rankSummaryDAO.insert(summary);

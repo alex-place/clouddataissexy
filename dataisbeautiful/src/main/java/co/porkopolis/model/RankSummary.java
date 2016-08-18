@@ -14,7 +14,6 @@ public class RankSummary {
 	}
 
 	public RankSummary(long id, String name, int wins, int losses, String division, int leaguePoints, String rank) {
-
 		this.id = id;
 		this.name = name;
 		this.wins = wins;
